@@ -295,7 +295,7 @@ pyside: ${PYTHON_DEPS} ${QT_DEPS} ${PYSIDE_SRC_DIR}
 		-DUSE_PYTHON_VERSION=3 \
 		-DPython_ROOT_DIR="${PYTHON_PREFIX}" \
 		-DBUILD_TESTS=OFF \
-		-DCMAKE_BUILD_TYPE=Release \
+		-DCMAKE_BUILD_TYPE=Debug \
 		../../sources/shiboken6
 
 	cmake --build "${PYSIDE_SRC_DIR}/build/shiboken6" -j
@@ -327,7 +327,7 @@ endif
 		-DPython_ROOT_DIR="${PYTHON_PREFIX}" \
 		-DBUILD_TESTS=OFF \
 		-DCMAKE_CXX_FLAGS=-w \
-		-DCMAKE_BUILD_TYPE=Release \
+		-DCMAKE_BUILD_TYPE=Debug \
 		-DMODULES="Core;Gui;Widgets" \
 		../../sources/pyside6
 

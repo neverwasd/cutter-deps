@@ -1,14 +1,14 @@
 name: package build
 
-on:
-  push:
-    branches:
-    - master
-    tags:
-    - v*
-  pull_request:
-    branches:
-    - master
+on: workflow_dispatch
+#  push:
+#    branches:
+#    - master
+#    tags:
+#    - v*
+#  pull_request:
+#    branches:
+#    - master
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}

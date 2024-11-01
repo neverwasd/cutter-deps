@@ -46,10 +46,9 @@ jobs:
             libgl1-mesa-dev \
             curl
           sudo apt remove llvm-10 clang-10
-          sudo apt-get -y dist-upgrade
+          #sudo apt-get -y dist-upgrade
           apt list --installed
-          find / -name "libc.so*"
-          find / -name "libstdc++.so*"
+          find / -xdev ! -readable -prune -o \( -name "libc.so*" -o -name "libstdc++.so*" \) -print
           strings /lib/x86_64-linux-gnu/libc.so.6 | grep GLIBC
           strings /lib/x86_64-linux-gnu/libstdc++.so.6 | grep GLIBCXX
           make

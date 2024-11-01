@@ -43,7 +43,7 @@ jobs:
             mesa-common-dev \
             libgl1-mesa-dev \
             curl
-          sudo apt remove llvm-10 clang-10
+          #sudo apt remove llvm-10 clang-10
           apt list --installed
           strings /lib/x86_64-linux-gnu/libc.so.6 | grep GLIBC
           strings /lib/x86_64-linux-gnu/libstdc++.so.6 | grep GLIBCXX

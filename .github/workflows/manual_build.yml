@@ -44,7 +44,7 @@ jobs:
             libgl1-mesa-dev \
             curl
           sudo apt remove llvm-10 clang-10
-          sudo apt-get dist-upgrade
+          sudo apt-get -y dist-upgrade
           apt list --installed
           find / -name "libc.so*"
           find / -name "libstdc++.so*"

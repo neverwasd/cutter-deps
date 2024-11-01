@@ -47,7 +47,7 @@ jobs:
             libgl1-mesa-dev \
             curl
           #export LLVM_INSTALL_DIR=/usr/lib/llvm-12
-          #sudo ln -s /usr/lib/llvm-12/bin/llvm-config /usr/bin/llvm-config
+          sudo ln -s /usr/lib/llvm-12/bin/llvm-config /usr/bin/llvm-config
           make
           echo UPLOAD_FILE=cutter-deps-linux-x86_64.tar.gz >> $GITHUB_ENV
           echo UPLOAD_ASSET_TYPE=application/gzip >> $GITHUB_ENV

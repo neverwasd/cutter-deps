@@ -1,0 +1,105 @@
+name: Manual Build
+
+on:
+  workflow_dispatch:
+    inputs:
+      target_platform:
+        description: 'Target platform'
+        required: true
+        type: choice
+        options:
+          - linux-x86_64
+          - macos-x86_64
+          - macos-arm64
+          - windows-x86_64
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: ${{ github.event.inputs.target_platform }}
+            os: ${{ (github.event.inputs.target_platform == 'linux-x86_64' && 'ubuntu-20.04') || 
+                    (github.event.inputs.target_platform == 'macos-x86_64' && 'macos-12') ||
+                    (github.event.inputs.target_platform == 'macos-arm64' && 'macos-14') ||
+                    (github.event.inputs.target_platform == 'windows-x86_64' && 'windows-2019') }}
+            arch: ${{ endsWith(github.event.inputs.target_platform, 'arm64') && 'arm64' || 'x86_64' }}
+
+    steps:
+      - uses: actions/checkout@v4
+    
+      - name: Build for Linux
+        if: contains(matrix.name, 'linux')
+        run: |
+          sudo apt-get -y update
+          sudo apt-get -y install \
+            build-essential \
+            libclang-12-dev \
+            llvm-12 \
+            cmake \
+            mesa-common-dev \
+            libgl1-mesa-dev \
+            curl
+          sudo apt remove llvm-10 clang-10
+          make
+          echo UPLOAD_FILE=cutter-deps-linux-x86_64.tar.gz >> $GITHUB_ENV
+          echo UPLOAD_ASSET_TYPE=application/gzip >> $GITHUB_ENV
+
+      - name: Build for macOS
+        if: contains(matrix.name, 'macos')
+        run: |
+          set -euo pipefail
+          brew install llvm ccache
+          if [ "${{ matrix.arch }}" = "arm64" ]; then
+            export CMAKE_PREFIX_PATH="$HOMEBREW_PREFIX/opt/llvm";
+          else
+            export CMAKE_PREFIX_PATH="/usr/local/opt/llvm";
+          fi
+          echo "###### Applications ######"
+          ls /Applications
+          echo "###### XCode Info ######"
+          sudo xcode-select --reset
+          export BUILD_SDK_PATH=$(xcrun --show-sdk-path)
+          echo "$BUILD_SDK_PATH"
+          echo "###### xcode-select Info ######"
+          xcode-select -print-path
+          echo "###### LLVM Info ######"
+          which clang
+          brew info llvm
+          echo "###### Make ######"
+          export MACOSX_DEPLOYMENT_TARGET=11.0
+          export MIN_SUPPORTED_MACOSX_DEPLOYMENT_TARGET=11.0
+          export CFLAGS=" -isysroot $BUILD_SDK_PATH "
+          export CCFLAGS=" -isysroot $BUILD_SDK_PATH "
+          export CXXFLAGS=" -isysroot $BUILD_SDK_PATH "
+          make
+          echo UPLOAD_FILE=cutter-deps-macos-${{ matrix.arch }}.tar.gz >> $GITHUB_ENV
+          echo UPLOAD_ASSET_TYPE=application/gzip >> $GITHUB_ENV
+
+      - name: Setup Python for Windows
+        if: contains(matrix.name, 'windows')
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Build for Windows
+        if: contains(matrix.name, 'windows')
+        shell: cmd
+        run: |
+          pwd
+          call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x64
+          where cl
+          where python
+          set MSYS2_PATH_TYPE=inherit
+          C:/shells/msys2bash.cmd "./scripts/build_win.sh"
+          echo UPLOAD_FILE=cutter-deps-linux-x86_64.tar.gz>> %GITHUB_ENV%
+          echo UPLOAD_ASSET_TYPE=application/gzip>> %GITHUB_ENV%
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.UPLOAD_FILE }}
+          path: ${{ env.UPLOAD_FILE }}
+          if-no-files-found: warn

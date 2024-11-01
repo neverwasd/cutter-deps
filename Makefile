@@ -62,10 +62,10 @@ ifeq (${QT_PREFIX},)
 QT_BIN_FILE=cutter-deps-qt-${PLATFORM}-${ARCH}.tar.gz
 PACKAGE_FILE=cutter-deps-${PLATFORM}-${ARCH}.tar.gz
 QT_BIN_URL=https://github.com/neverwasd/cutter-deps-qt/releases/download/v14-dbg/${QT_BIN_FILE}
-QT_BIN_SHA256_linux_x86_64=0a9546770d4340102794581613ead5716fda61614411ea64518eccb69a6bd016
-QT_BIN_SHA256_macos_arm64=073421e4309a08a6382815e1e41b54f6a977d46812ebb0c04d7e74f90423acec
-QT_BIN_SHA256_macos_x86_64=682b74865056aeb95a6fa7bc41b4fcdef369b91d40fe6a5c3411801b211d7d07
-QT_BIN_SHA256_win_x86_64=b5a1a89adcfce54d363497df823f32c35b38e4b6c5a4da9d4a48f62f27e56833
+QT_BIN_SHA256_linux_x86_64=4fce4b5844370b62cb22ea8e8e82ad3f49f65676a7b9597ccaef0dd221971767
+QT_BIN_SHA256_macos_arm64=859257ccf9e272530748945083483df77e1b47c8ac6b3b4357cad38d176965db
+QT_BIN_SHA256_macos_x86_64=ffc6095644a54ef3c9870eb2e71927f98ece354edcaa6aa3ee02ca663627441a
+QT_BIN_SHA256_win_x86_64=95c45dbbf67217d9a22519700d1760af97a398ca2e799e7af8e4392898ef99d3
 QT_BIN_SHA256=${QT_BIN_SHA256_${PLATFORM}_${ARCH}}
 QT_BIN_DIR=qt
 QT_PREFIX:=${ROOT_DIR}/${QT_BIN_DIR}
@@ -167,14 +167,14 @@ ifeq (${PLATFORM}-${ARCH},macos-x86_64)
 	cd "${PYTHON_SRC_DIR}" && \
 		CPPFLAGS="${CPPFLAGS} -I$(shell brew --prefix openssl)/include" \
 		LDFLAGS="${LDFLAGS} -L$(shell brew --prefix openssl)/lib" \
-		./configure --enable-framework="${PYTHON_FRAMWORK_DIR}" --prefix="${ROOT_DIR}/python_prefix_tmp"
+		./configure --with-pydebug --enable-framework="${PYTHON_FRAMWORK_DIR}" --prefix="${ROOT_DIR}/python_prefix_tmp"
 	# Patch for https://github.com/rizinorg/cutter/issues/424
 	sed -i ".original" "s/#define HAVE_GETENTROPY 1/#define HAVE_GETENTROPY 0/" "${PYTHON_SRC_DIR}/pyconfig.h"
 else ifeq (${PLATFORM},macos)
 	cd "${PYTHON_SRC_DIR}" && \
-		./configure --enable-framework="${PYTHON_FRAMWORK_DIR}" --prefix="${ROOT_DIR}/python_prefix_tmp"
+		./configure --with-pydebug --enable-framework="${PYTHON_FRAMWORK_DIR}" --prefix="${ROOT_DIR}/python_prefix_tmp"
 else
-	cd "${PYTHON_SRC_DIR}" && ./configure --enable-shared --prefix="${PYTHON_PREFIX}"
+	cd "${PYTHON_SRC_DIR}" && ./configure --with-pydebug --enable-shared --prefix="${PYTHON_PREFIX}"
 endif
 
 	make -C "${PYTHON_SRC_DIR}" -j > /dev/null

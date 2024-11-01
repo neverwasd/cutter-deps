@@ -53,9 +53,9 @@ jobs:
             llvm-15 \
             clang-15
           apt list --installed
-          find / -xdev ! -readable -prune -o \( -name "libc.so*" -o -name "libstdc++.so*" \) -print
-          strings /lib/x86_64-linux-gnu/libc.so.6 | grep GLIBC
-          strings /lib/x86_64-linux-gnu/libstdc++.so.6 | grep GLIBCXX
+          #find / -xdev ! -readable -prune -o \( -name "libc.so*" -o -name "libstdc++.so*" \) -print
+          #strings /lib/x86_64-linux-gnu/libc.so.6 | grep GLIBC
+          #strings /lib/x86_64-linux-gnu/libstdc++.so.6 | grep GLIBCXX
           make
           echo UPLOAD_FILE=cutter-deps-linux-x86_64.tar.gz >> $GITHUB_ENV
           echo UPLOAD_ASSET_TYPE=application/gzip >> $GITHUB_ENV

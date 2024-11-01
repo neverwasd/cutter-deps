@@ -84,11 +84,11 @@ jobs:
           echo UPLOAD_FILE=cutter-deps-macos-${{ matrix.arch }}.tar.gz >> $GITHUB_ENV
           echo UPLOAD_ASSET_TYPE=application/gzip >> $GITHUB_ENV
 
-      - name: Setup Python for Windows
-        if: contains(matrix.name, 'windows')
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
+#      - name: Setup Python for Windows
+#        if: contains(matrix.name, 'windows')
+#        uses: actions/setup-python@v5
+#        with:
+#          python-version: '3.11'
 
       - name: Build for Windows
         if: contains(matrix.name, 'windows')

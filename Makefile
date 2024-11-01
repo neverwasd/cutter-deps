@@ -92,11 +92,11 @@ PYSIDE_SRC_DIR=pyside-setup-everywhere-src-${QT_VERSION}
 PYSIDE_PREFIX=${ROOT_DIR}/pyside
 
 ifeq (${PLATFORM},linux)
-  LLVM_LIBDIR=$(shell llvm-config-12 --libdir)
+  LLVM_LIBDIR=$(shell llvm-config --libdir)
   export LD_LIBRARY_PATH := ${PYTHON_PREFIX}/lib:${QT_PREFIX}/lib:${LLVM_LIBDIR}:${LD_LIBRARY_PATH}
 endif
 ifeq (${PLATFORM},macos)
-  LLVM_LIBDIR=$(shell llvm-config-12 --libdir)
+  LLVM_LIBDIR=$(shell llvm-config --libdir)
   export DYLD_LIBRARY_PATH := ${PYTHON_PREFIX}/lib:${QT_PREFIX}/lib:${LLVM_LIBDIR}:${DYLD_LIBRARY_PATH}
   export DYLD_FRAMEWORK_PATH := ${PYTHON_PREFIX}/lib:${QT_PREFIX}/lib:${LLVM_LIBDIR}:${DYLD_FRAMEWORK_PATH}
 endif

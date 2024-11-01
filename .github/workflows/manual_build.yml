@@ -34,6 +34,8 @@ jobs:
       - name: Build for Linux
         if: contains(matrix.name, 'linux')
         run: |
+          echo "Building for Linux ${{ matrix.arch }}"
+          export DEBIAN_FRONTEND=noninteractive
           sudo apt-get -y update
           sudo apt-get -y install \
             build-essential \
@@ -57,6 +59,7 @@ jobs:
       - name: Build for macOS
         if: contains(matrix.name, 'macos')
         run: |
+          echo "Building for macOS ${{ matrix.arch }}"
           set -euo pipefail
           brew install llvm ccache
           if [ "${{ matrix.arch }}" = "arm64" ]; then
@@ -95,6 +98,7 @@ jobs:
         if: contains(matrix.name, 'windows')
         shell: cmd
         run: |
+          echo Building for Windows ${{ matrix.arch }}
           pwd
           call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x64
           where cl

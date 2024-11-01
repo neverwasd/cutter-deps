@@ -55,16 +55,17 @@ jobs:
           #apt list --installed
           #find / -xdev ! -readable -prune -o \( -name "libc.so*" -o -name "libstdc++.so*" \) -print
           #find / -xdev ! -readable -prune -o -name "llvm-config*" -print
+          find / -xdev ! -readable -prune -o -iname "clang*config.cmake" -print
           #which llvm-config
           #ls -al $(which llvm-config)
           #strings /lib/x86_64-linux-gnu/libc.so.6 | grep GLIBC
           #strings /lib/x86_64-linux-gnu/libstdc++.so.6 | grep GLIBCXX
           sudo ln -s /usr/lib/llvm-12/bin/llvm-config /usr/bin/llvm-config
           export LLVM_INSTALL_DIR=/usr/lib/llvm-12
-          make
+          #make
           echo UPLOAD_FILE=cutter-deps-linux-x86_64.tar.gz >> $GITHUB_ENV
           echo UPLOAD_ASSET_TYPE=application/gzip >> $GITHUB_ENV
-          #exit 1
+          exit 1
 
       - name: Build for macOS
         if: contains(matrix.name, 'macos')

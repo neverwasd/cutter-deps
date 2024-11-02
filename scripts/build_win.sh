@@ -20,7 +20,7 @@ cd "${PYTHON_SRC_DIR}"
 ./PCbuild/build.bat -e -d -p x64
 cd ..
 
-# llvm
+# clang+llvm
 LLVM_NAME=clang+llvm-18.1.5-x86_64-pc-windows-msvc
 LLVM_ARCHIVE="${LLVM_NAME}.tar.xz"
 wget --progress=dot:giga https://github.com/llvm/llvm-project/releases/download/llvmorg-18.1.5/${LLVM_ARCHIVE}
@@ -28,6 +28,7 @@ echo "7027f03bcab87d8a72fee35a82163b0730a9c92f5160373597de95010f722935  ./${LLVM
 tar -xf ${LLVM_ARCHIVE}
 export LLVM_INSTALL_DIR=${PWD}/{$LLVM_NAME}
 export CMAKE_PREFIX_PATH=${LLVM_INSTALL_DIR}
+export Clang_DIR="${LLVM_INSTALL_DIR}/lib/cmake/clang"
 
 # REMOVE any gcc installs (possibly provided by msys) from path, we are trying to do a MSVC based build
 which cl

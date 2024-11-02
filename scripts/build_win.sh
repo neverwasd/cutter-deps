@@ -1,8 +1,6 @@
 set -euo pipefail
 
 # Install clang-12
-pacman -S --needed --noconfirm clang-12
-
 #pacman -S --needed --noconfirm mingw-w64-x86_64-clang
 find / ! -readable -prune -o -iname "clang*config.cmake" -print
 

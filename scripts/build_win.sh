@@ -1,8 +1,8 @@
 set -euo pipefail
 
-# Install clang-12
-#pacman -S --needed --noconfirm mingw-w64-x86_64-clang
-find / ! -readable -prune -o -iname "clang*config.cmake" -print
+# Install clang
+pacman -S --needed --noconfirm mingw-w64-x86_64-clang
+#find / ! -readable -prune -o -iname "clang*config.cmake" -print
 
 # Configure MSVC path
 MSVC_PATH="/c/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/VC/Tools/MSVC/14.29.30133/bin/HostX64/x64"

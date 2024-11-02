@@ -1,7 +1,7 @@
 set -euo pipefail
 
 # Python dependencies
-pacman -S base-devel mingw-w64-x86_64-toolchain mingw-w64-x86_64-zlib mingw-w64-x86_64-openssl mingw-w64-x86_64-libffi mingw-w64-x86_64-bzip2
+pacman --noconfirm -S base-devel mingw-w64-x86_64-toolchain mingw-w64-x86_64-zlib mingw-w64-x86_64-openssl mingw-w64-x86_64-libffi mingw-w64-x86_64-bzip2
 
 # llvm
 LLVM_NAME=clang+llvm-18.1.5-x86_64-pc-windows-msvc

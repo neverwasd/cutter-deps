@@ -15,6 +15,7 @@ PYTHON_SRC_DIR=${PWD}/${PYTHON_NAME}
 cd "${PYTHON_SRC_DIR}"
 ./PCbuild/build.bat -e -d -p x64
 cd ..
+tree "${PYTHON_SRC_DIR}"
 
 # clang+llvm
 LLVM_NAME=clang+llvm-18.1.5-x86_64-pc-windows-msvc

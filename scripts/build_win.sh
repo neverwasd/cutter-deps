@@ -1,12 +1,8 @@
 set -euo pipefail
 
-# Install clang
-pacman -S --needed --noconfirm mingw-w64-x86_64-clang
-#find / ! -readable -prune -o -iname "clang*config.cmake" -print
-
 # Configure MSVC path
-MSVC_PATH="/c/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/VC/Tools/MSVC/14.29.30133/bin/HostX64/x64"
-export PATH="${MSVC_PATH}:$PATH"
+#MSVC_PATH="/c/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/VC/Tools/MSVC/14.29.30133/bin/HostX64/x64"
+#export PATH="${MSVC_PATH}:$PATH"
 
 # Python
 PYTHON_VERSION=3.11.9
@@ -26,9 +22,9 @@ LLVM_ARCHIVE="${LLVM_NAME}.tar.xz"
 wget --progress=dot:giga https://github.com/llvm/llvm-project/releases/download/llvmorg-18.1.5/${LLVM_ARCHIVE}
 echo "7027f03bcab87d8a72fee35a82163b0730a9c92f5160373597de95010f722935  ./${LLVM_ARCHIVE}" | sha256sum -c -
 tar -xf ${LLVM_ARCHIVE}
-export LLVM_INSTALL_DIR=${PWD}/{$LLVM_NAME}
+export LLVM_INSTALL_DIR=${PWD}/${LLVM_NAME}
 export CMAKE_PREFIX_PATH=${LLVM_INSTALL_DIR}
-export Clang_DIR="${LLVM_INSTALL_DIR}/lib/cmake/clang"
+#export Clang_DIR="${LLVM_INSTALL_DIR}/lib/cmake/clang"
 
 # REMOVE any gcc installs (possibly provided by msys) from path, we are trying to do a MSVC based build
 which cl

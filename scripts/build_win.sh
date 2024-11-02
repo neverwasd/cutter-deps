@@ -32,4 +32,4 @@ export PATH=`echo $PATH | tr ":" "\n" | grep -v "mingw64" | grep -v "Strawberry"
 echo $PATH
 which gcc || echo "No GCC in path, OK!"
 
-make PLATFORM=win "PYTHON_WINDOWS=${PYTHON_SRC_DIR}"
+make PLATFORM=win "PYTHON_WINDOWS=${PYTHON_SRC_DIR}/amd64"

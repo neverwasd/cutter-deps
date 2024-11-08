@@ -14,7 +14,7 @@ PYTHON_INSTALLER="python-${PYTHON_VERSION}-${PYTHON_ARCH}.exe"
 PYTHON_URL="${PYTHON_FTP}/${PYTHON_VERSION}/${PYTHON_INSTALLER}"
 PYTHON_INSTALL_DIR="${PWD}/python-${PYTHON_VERSION}-${PYTHON_ARCH}"
 wget --progress=dot:giga "${PYTHON_URL}"
-${PYTHON_INSTALLER} /quiet Include_debug=1 Include_dev=1 Include_lib=1 Include_pip=1 PrependPath=1 CompileAll=1 InstallAllUsers=0 TargetDir=${PYTHON_INSTALL_DIR}
+${PWD}/${PYTHON_INSTALLER} /quiet Include_debug=1 Include_dev=1 Include_lib=1 Include_pip=1 PrependPath=1 CompileAll=1 InstallAllUsers=0 TargetDir=${PYTHON_INSTALL_DIR}
 tree "${PYTHON_INSTALL_DIR}"
 ${PYTHON_INSTALL_DIR}\python.exe -c "import sys; print(sys.version)"
 exit 255

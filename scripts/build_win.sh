@@ -7,10 +7,17 @@ pacman -S --needed --noconfirm tree
 #export PATH="${MSVC_PATH}:$PATH"
 
 # Python
-PYTHON_VERSION=3.11.9
-PYTHON_NAME=Python-${PYTHON_VERSION}
-PYTHON_ARCHIVE=${PYTHON_NAME}.tgz
-wget --progress=dot:giga https://www.python.org/ftp/python/${PYTHON_VERSION}/${PYTHON_ARCHIVE}
+PYTHON_FTP="https://www.python.org/ftp/python"
+PYTHON_VERSION="3.11.9"
+PYTHON_ARCH="amd64"
+PYTHON_INSTALLER="python-${PYTHON_VERSION}-${PYTHON_ARCH}.exe"
+PYTHON_URL="${PYTHON_FTP}/${PYTHON_VERSION}/${PYTHON_INSTALLER}"
+PYTHON_INSTALL_DIR="${PWD}/python-${PYTHON_VERSION}-${PYTHON_ARCH}"
+wget --progress=dot:giga "${PYTHON_URL}"
+${PYTHON_INSTALLER} /quiet Include_debug=1 Include_dev=1 Include_lib=1 Include_pip=1 PrependPath=1 CompileAll=1 InstallAllUsers=0 TargetDir=${PYTHON_INSTALL_DIR}
+tree "${PYTHON_INSTALL_DIR}"
+${PYTHON_INSTALL_DIR}\python.exe -c "import sys; print(sys.version)"
+exit 255
 echo "e7de3240a8bc2b1e1ba5c81bf943f06861ff494b69fda990ce2722a504c6153d  ./${PYTHON_ARCHIVE}" | sha256sum -c -
 tar -xf ${PYTHON_ARCHIVE}
 PYTHON_SRC_DIR=${PWD}/${PYTHON_NAME}
@@ -36,4 +43,4 @@ export PATH=`echo $PATH | tr ":" "\n" | grep -v "mingw64" | grep -v "Strawberry"
 echo $PATH
 which gcc || echo "No GCC in path, OK!"
 
-make PLATFORM=win "PYTHON_WINDOWS=${PYTHON_SRC_DIR}/amd64"
+make PLATFORM=win "PYTHON_WINDOWS=${PYTHON_INSTALL_DIR}"

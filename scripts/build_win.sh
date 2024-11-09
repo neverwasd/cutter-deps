@@ -1,7 +1,5 @@
 set -euo pipefail
 
-pacman -S --needed --noconfirm tree
-
 # Configure MSVC path
 #MSVC_PATH="/c/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/VC/Tools/MSVC/14.29.30133/bin/HostX64/x64"
 #export PATH="${MSVC_PATH}:$PATH"
@@ -14,18 +12,10 @@ PYTHON_INSTALLER="python-${PYTHON_VERSION}-${PYTHON_ARCH}.exe"
 PYTHON_URL="${PYTHON_FTP}/${PYTHON_VERSION}/${PYTHON_INSTALLER}"
 PYTHON_INSTALL_DIR="${PWD}/python-${PYTHON_VERSION}-${PYTHON_ARCH}"
 wget --progress=dot:giga "${PYTHON_URL}"
+echo "5ee42c4eee1e6b4464bb23722f90b45303f79442df63083f05322f1785f5fdde  ./${PYTHON_INSTALLER}" | sha256sum -c -
 mkdir ${PYTHON_INSTALL_DIR}
 ${PWD}/${PYTHON_INSTALLER} //quiet Include_debug=1 InstallAllUsers=0 Include_launcher=0 Include_test=0 Include_tools=0 Include_doc=0 Include_pip=0 Include_tcltk=0 TargetDir=$(cygpath -w "${PYTHON_INSTALL_DIR}")
-tree "${PYTHON_INSTALL_DIR}"
 ${PYTHON_INSTALL_DIR}/python_d.exe -c "import sys; print(sys.version)"
-exit 255
-echo "e7de3240a8bc2b1e1ba5c81bf943f06861ff494b69fda990ce2722a504c6153d  ./${PYTHON_ARCHIVE}" | sha256sum -c -
-tar -xf ${PYTHON_ARCHIVE}
-PYTHON_SRC_DIR=${PWD}/${PYTHON_NAME}
-cd "${PYTHON_SRC_DIR}"
-./PCbuild/build.bat -e -d -p x64
-cd ..
-tree "${PYTHON_SRC_DIR}"
 
 # clang+llvm
 LLVM_NAME=clang+llvm-18.1.5-x86_64-pc-windows-msvc

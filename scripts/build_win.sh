@@ -4,6 +4,10 @@ set -euo pipefail
 #MSVC_PATH="/c/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/VC/Tools/MSVC/14.29.30133/bin/HostX64/x64"
 #export PATH="${MSVC_PATH}:$PATH"
 
+echo $MSYS2_PATH_TYPE
+echo $MSYSTEM
+exit 255
+
 # Python
 PYTHON_FTP="https://www.python.org/ftp/python"
 PYTHON_VERSION="3.11.9"

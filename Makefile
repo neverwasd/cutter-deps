@@ -294,6 +294,7 @@ pyside: ${PYTHON_DEPS} ${QT_DEPS} ${PYSIDE_SRC_DIR}
 		-DCMAKE_INSTALL_PREFIX="${PYSIDE_PREFIX}" \
 		-DUSE_PYTHON_VERSION=3 \
 		-DPython_ROOT_DIR="${PYTHON_PREFIX}" \
+		-DPython_EXECUTABLE="${PYTHON_PREFIX}/python_d.exe" \
 		-DBUILD_TESTS=OFF \
 		-DCMAKE_BUILD_TYPE=Release \
 		../../sources/shiboken6

@@ -293,9 +293,6 @@ pyside: ${PYTHON_DEPS} ${QT_DEPS} ${PYSIDE_SRC_DIR}
 		-DCMAKE_INSTALL_PREFIX="${PYSIDE_PREFIX}" \
 		-DUSE_PYTHON_VERSION=3 \
 		-DPython_ROOT_DIR="${PYTHON_PREFIX}" \
-		-DPython_EXECUTABLE="${PYTHON_PREFIX}/PCbuild/amd64/python_d.exe" \
-		-DPython_LIBRARIES="${PYTHON_PREFIX}/PCbuild/amd64/python311_d.lib" \
-		-DPython_INCLUDE_DIRS="${PYTHON_PREFIX}/Include" \
 		-DBUILD_TESTS=OFF \
 		-DCMAKE_BUILD_TYPE=Debug \
 		../../sources/shiboken6

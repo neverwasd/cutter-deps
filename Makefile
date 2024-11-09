@@ -295,6 +295,7 @@ pyside: ${PYTHON_DEPS} ${QT_DEPS} ${PYSIDE_SRC_DIR}
 		-DPython_ROOT_DIR="${PYTHON_PREFIX}" \
 		-DPython_EXECUTABLE="${PYTHON_PREFIX}/python_d.exe" \
 		-DPython_LIBRARIES="${PYTHON_PREFIX}/libs/python311_d.lib" \
+		-DPYTHON_LIMITED_LIBRARIES="${PYTHON_PREFIX}/libs/python3_d.lib \
 		-DBUILD_TESTS=OFF \
 		-DCMAKE_BUILD_TYPE=Debug \
 		../../sources/shiboken6

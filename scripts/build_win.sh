@@ -14,9 +14,10 @@ PYTHON_INSTALLER="python-${PYTHON_VERSION}-${PYTHON_ARCH}.exe"
 PYTHON_URL="${PYTHON_FTP}/${PYTHON_VERSION}/${PYTHON_INSTALLER}"
 PYTHON_INSTALL_DIR="${PWD}/python-${PYTHON_VERSION}-${PYTHON_ARCH}"
 wget --progress=dot:giga "${PYTHON_URL}"
-${PWD}/${PYTHON_INSTALLER} /quiet Include_debug=1 Include_dev=1 Include_lib=1 Include_pip=1 PrependPath=1 CompileAll=1 InstallAllUsers=0 TargetDir=${PYTHON_INSTALL_DIR}
+mkdir ${PYTHON_INSTALL_DIR}
+${PWD}/${PYTHON_INSTALLER} //quiet Include_debug=1 InstallAllUsers=0 Include_launcher=0 Include_test=0 Include_tools=0 Include_doc=0 Include_pip=0 Include_tcltk=0 TargetDir=$(cygpath -w "${PYTHON_INSTALL_DIR}")
 tree "${PYTHON_INSTALL_DIR}"
-${PYTHON_INSTALL_DIR}\python.exe -c "import sys; print(sys.version)"
+${PYTHON_INSTALL_DIR}/python_d.exe -c "import sys; print(sys.version)"
 exit 255
 echo "e7de3240a8bc2b1e1ba5c81bf943f06861ff494b69fda990ce2722a504c6153d  ./${PYTHON_ARCHIVE}" | sha256sum -c -
 tar -xf ${PYTHON_ARCHIVE}

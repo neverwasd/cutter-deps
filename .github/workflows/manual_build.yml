@@ -100,7 +100,7 @@ jobs:
           where cl
           where python
           set MSYS2_PATH_TYPE=inherit
-          type C:/shells/msys2bash.cmd
+          type C:\shells\msys2bash.cmd
           exit 255
           C:/shells/msys2bash.cmd "./scripts/build_win.sh"
           echo UPLOAD_FILE=cutter-deps-linux-x86_64.tar.gz>> %GITHUB_ENV%
